@@ -1,0 +1,331 @@
+<!DOCTYPE html><html class="h-full bg-background dark:bg-background" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>UPSTAGE - Interview Performance Report</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error": "#ffffff",
+                      "surface-tint": "#5654a8",
+                      "secondary-container": "#d0e1fb",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-bright": "#f7f9fb",
+                      "inverse-on-surface": "#eff1f3",
+                      "on-secondary-fixed-variant": "#38485d",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed-variant": "#3e3c8f",
+                      "on-tertiary-container": "#9ba3bc",
+                      "background": "#f7f9fb",
+                      "secondary-fixed-dim": "#b7c8e1",
+                      "on-background": "#191c1e",
+                      "on-tertiary-fixed": "#131b2e",
+                      "surface-variant": "#e0e3e5",
+                      "outline": "#777682",
+                      "primary": "#1a146b",
+                      "surface-container-low": "#f2f4f6",
+                      "on-secondary-container": "#54647a",
+                      "on-surface-variant": "#474651",
+                      "on-primary-container": "#9c9af4",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed": "#dae2fd",
+                      "tertiary-container": "#31394e",
+                      "on-secondary-fixed": "#0b1c30",
+                      "tertiary": "#1c2437",
+                      "inverse-surface": "#2d3133",
+                      "on-tertiary-fixed-variant": "#3f465c",
+                      "outline-variant": "#c8c5d3",
+                      "error": "#ba1a1a",
+                      "secondary": "#505f76",
+                      "secondary-fixed": "#d3e4fe",
+                      "surface-container": "#eceef0",
+                      "primary-container": "#312e81",
+                      "inverse-primary": "#c3c0ff",
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-dim": "#d8dadc",
+                      "surface-container-high": "#e6e8ea",
+                      "on-surface": "#191c1e",
+                      "on-primary-fixed": "#100563",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "surface": "#f7f9fb",
+                      "tertiary-fixed-dim": "#bec6e0",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#e2dfff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "container-max": "1280px",
+                      "unit": "4px",
+                      "gutter": "24px",
+                      "md": "16px",
+                      "lg": "24px",
+                      "xl": "40px",
+                      "sm": "8px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "display": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-sm": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-sm": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "28px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background h-full font-body-md antialiased flex flex-col">
+<!-- TopNavBar Shared Component -->
+<header class="bg-surface border-b border-outline-variant docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-lg max-w-container-max mx-auto h-16">
+<div class="flex items-center gap-lg">
+<span class="font-display text-display font-bold text-primary">UPSTAGE</span>
+<nav class="hidden md:flex gap-md">
+<a class="text-secondary font-medium hover:text-primary transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-secondary font-medium hover:text-primary transition-colors duration-200" href="#">Interviews</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">History</a>
+<a class="text-secondary font-medium hover:text-primary transition-colors duration-200" href="#">Progress</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-secondary hover:text-primary transition-colors duration-200 hidden md:block">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="text-secondary hover:text-primary transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-secondary hover:text-primary transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="Candidate Profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="Professional headshot of a candidate in a modern, well-lit studio environment, subtle cool tones, minimalist aesthetic, representing an UPSTAGE user profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHCWpUiODxK9SJoi0QmmHorQUjFxM7ifToFj3OSnRUcRCcDRkI7Roqw3prfAVQqh0y-ofdrv9h6VR05bvndZHhysr0j-oFIEqkGZenrNLd2SbbxVKT0KQ4Pgg7RJO8LgDVMZpZ-2wsQjL97OW6Atv209vngF0Gb8nVd3PKV8eCMrQYuE--dIArj7PYVnFCH04rL8IVmBCw7MR2J6lJiGdrYJ3SI_kkN0oH6xzYb9VXfo5XuHPlda4O9g">
+<button class="font-label-md text-label-md text-on-primary bg-primary-container hover:bg-primary-container/90 px-md py-sm rounded transition-colors ml-sm">Logout</button>
+</div>
+</div>
+</header>
+<main class="flex-grow p-lg w-full max-w-container-max mx-auto">
+<div class="mb-xl flex items-center justify-between border-b border-outline-variant pb-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary">Senior Frontend Developer Mock Interview</h1>
+<p class="font-body-md text-body-md text-secondary mt-sm">Completed on October 24, 2023 • Duration: 45m</p>
+</div>
+<button class="font-label-md text-label-md text-on-surface-variant bg-surface-variant hover:bg-surface-dim px-md py-sm rounded border border-outline-variant transition-colors flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">download</span> Download PDF
+            </button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Overall Score & Breakdown -->
+<section class="lg:col-span-4 flex flex-col gap-lg">
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-lg flex flex-col items-center justify-center text-center shadow-sm">
+<h2 class="font-headline-md text-headline-md text-secondary mb-sm">Overall Score</h2>
+<div class="relative w-32 h-32 flex items-center justify-center mb-md">
+<svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="45" stroke="#e2e8f0" stroke-width="8"></circle>
+<circle cx="50" cy="50" fill="none" r="45" stroke="#312e81" stroke-dasharray="282.7" stroke-dashoffset="50.8" stroke-width="8"></circle> <!-- 82% of 282.7 -->
+</svg>
+<span class="absolute font-display text-display text-primary">82</span>
+</div>
+<span class="font-label-md text-label-md text-primary bg-secondary-fixed px-md py-xs rounded-full">Strong Performance</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-lg shadow-sm">
+<h3 class="font-headline-md text-headline-md text-primary mb-md">Score Breakdown</h3>
+<div class="space-y-md">
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-xs">
+<span class="text-secondary">Relevance</span>
+<span class="text-primary font-bold">85%</span>
+</div>
+<div class="w-full bg-surface-variant h-[4px] rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-xs">
+<span class="text-secondary">Depth</span>
+<span class="text-primary font-bold">78%</span>
+</div>
+<div class="w-full bg-surface-variant h-[4px] rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 78%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-xs">
+<span class="text-secondary">Clarity</span>
+<span class="text-primary font-bold">90%</span>
+</div>
+<div class="w-full bg-surface-variant h-[4px] rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 90%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-xs">
+<span class="text-secondary">Technical Accuracy</span>
+<span class="text-primary font-bold">80%</span>
+</div>
+<div class="w-full bg-surface-variant h-[4px] rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 80%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Qualitative Feedback & Question List -->
+<section class="lg:col-span-8 flex flex-col gap-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="bg-[#f5f3ff] border border-[#e2dfff] rounded p-lg shadow-sm">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-[#312e81]">trending_up</span>
+<h3 class="font-headline-md text-headline-md text-[#312e81]">Key Strengths</h3>
+</div>
+<ul class="font-body-md text-body-md text-[#3e3c8f] space-y-sm list-disc list-inside">
+<li>Clear and concise communication of complex concepts.</li>
+<li>Strong understanding of modern React state management.</li>
+<li>Excellent approach to debugging structured problems.</li>
+</ul>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-lg shadow-sm">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-secondary">lightbulb</span>
+<h3 class="font-headline-md text-headline-md text-secondary">Areas for Improvement</h3>
+</div>
+<ul class="font-body-md text-body-md text-secondary space-y-sm list-disc list-inside">
+<li>Provide more concrete examples when discussing architecture.</li>
+<li>Review nuances of Webpack configuration vs Vite.</li>
+<li>Pacing during the live coding segment could be steadier.</li>
+</ul>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-lg shadow-sm mt-md">
+<h3 class="font-headline-md text-headline-md text-primary mb-md pb-sm border-b border-outline-variant">Question Breakdown</h3>
+<div class="space-y-lg divide-y divide-outline-variant">
+<!-- Q1 -->
+<div class="pt-md first:pt-0">
+<div class="flex justify-between items-start mb-sm">
+<h4 class="font-headline-md text-headline-md text-on-background flex-1 pr-md">1. Explain the virtual DOM and how React's diffing algorithm works.</h4>
+<span class="font-label-md text-label-md bg-secondary-fixed text-primary px-sm py-xs rounded">9/10</span>
+</div>
+<div class="bg-[#f5f3ff] p-md rounded border border-[#e2dfff] mt-sm">
+<p class="font-body-sm text-body-sm text-[#3e3c8f]"><span class="font-bold">AI Feedback:</span> Excellent explanation. You clearly articulated the concept of reconciliation and heuristic O(n) complexity. Good mention of keys in lists.</p>
+</div>
+</div>
+<!-- Q2 -->
+<div class="pt-lg">
+<div class="flex justify-between items-start mb-sm">
+<h4 class="font-headline-md text-headline-md text-on-background flex-1 pr-md">2. How would you optimize a large React application that is experiencing performance issues?</h4>
+<span class="font-label-md text-label-md bg-surface-container-high text-on-surface-variant px-sm py-xs rounded border border-outline-variant">7/10</span>
+</div>
+<div class="bg-[#f5f3ff] p-md rounded border border-[#e2dfff] mt-sm">
+<p class="font-body-sm text-body-sm text-[#3e3c8f]"><span class="font-bold">AI Feedback:</span> Good general overview of memoization (useMemo, useCallback) and code splitting. However, missed discussing more advanced profiling tools or addressing re-renders caused by context API in large trees.</p>
+</div>
+</div>
+<!-- Q3 -->
+<div class="pt-lg">
+<div class="flex justify-between items-start mb-sm">
+<h4 class="font-headline-md text-headline-md text-on-background flex-1 pr-md">3. Describe your approach to testing frontend applications.</h4>
+<span class="font-label-md text-label-md bg-secondary-fixed text-primary px-sm py-xs rounded">8.5/10</span>
+</div>
+<div class="bg-[#f5f3ff] p-md rounded border border-[#e2dfff] mt-sm">
+<p class="font-body-sm text-body-sm text-[#3e3c8f]"><span class="font-bold">AI Feedback:</span> Solid coverage of the testing pyramid. Good justification for focusing on integration tests over brittle unit tests for UI components. Mentioning Cypress vs Playwright showed current industry knowledge.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>
