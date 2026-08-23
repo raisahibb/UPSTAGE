@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #312e81;
+  --color-primary-hover: #3730a3;
+  --color-primary-active: #28246d;
+  --color-primary-light: #4338ca;
+
+  --color-background: #f7f9fb;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+
+  --color-primary-text: #334155;
+  --color-secondary-text: #52627a;
+  --color-muted-text: #94a3b8;
+
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Manrope", sans-serif;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-primary-text);
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* Custom Desi Classes for UI simplicity */
+.badaTitle {
+  /* Heading ke liye Manrope aur normal text ke liye Inter use kiya hai. */
+  @apply font-heading text-2xl font-bold text-[var(--color-primary)];
+}
+
+.chhotaText {
+  @apply text-sm text-[var(--color-secondary-text)] mt-1;
+}
+
+.bottomText {
+  @apply mt-6 text-center text-sm text-[var(--color-secondary-text)];
+}
+
+.linkText {
+  @apply font-medium text-[var(--color-primary)];
+}
+
+/* Landing Page Classes */
+.heroDabba {
+  @apply max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 lg:pt-10 lg:pb-16 flex justify-center;
+}
+
+.heroBadaTitle {
+  @apply font-heading text-4xl md:text-[56px] md:leading-[1.1] font-extrabold text-[var(--color-primary)] max-w-2xl tracking-tight;
+}
+
+.heroChhotaText {
+  @apply text-lg text-[var(--color-secondary-text)] max-w-xl;
+}
+
+.versionBadge {
+  @apply inline-flex items-center gap-1 px-3 py-1 rounded-full bg-transparent text-[var(--color-primary)] w-fit border border-[var(--color-border)] text-xs font-semibold;
+}
+
+.primaryBadaBtn {
+  @apply bg-gradient-to-r from-[#6366f1] to-[#4f46e5] text-white px-6 py-3 rounded text-sm font-semibold active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 hover:from-[#4f46e5] hover:to-[#4338ca] shadow-sm hover:shadow-md;
+}
+
+.primary-gradient-bg {
+  @apply bg-gradient-to-r from-[#6366f1] to-[#4f46e5] text-white shadow-sm;
+}
+
+.secondaryBadaBtn {
+  @apply bg-transparent text-[var(--color-primary-text)] border border-[var(--color-border)] px-6 py-3 rounded text-sm font-semibold active:scale-95 transition-transform hover:bg-[var(--color-surface)] flex items-center justify-center;
+}
+
+.sectionDabba {
+  @apply max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24;
+}
+
+.sectionTitle {
+  @apply font-heading text-3xl font-bold text-[var(--color-primary)] mb-4;
+}
+
+.sectionSubTitle {
+  @apply text-base text-[var(--color-secondary-text)] max-w-2xl;
+}
+
+.iconGolDabba {
+  @apply w-12 h-12 rounded-full bg-[var(--color-background)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-primary)] font-bold;
+}
+
+.heroBg {
+  background: linear-gradient(135deg, #f5f7fc 0%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.heroGlow {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(49, 46, 129, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
+  top: -200px;
+  right: -100px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.featureListDabba {
+  @apply flex flex-col gap-3 mt-8;
+}
+
+.featureItem {
+  @apply flex items-center gap-2 text-sm text-[var(--color-primary-text)] font-medium;
+}
+
+.checkIconBox {
+  @apply text-green-600 flex-shrink-0;
+}
+
+.mockupDabba {
+  @apply bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl overflow-hidden relative shadow-lg ring-1 ring-black/5;
+}
+
+/* Dashboard Classes */
+.dashBadaTitle {
+  @apply font-heading text-3xl font-bold text-[var(--color-primary)] mb-1;
+}
+
+.dashChhotaText {
+  @apply text-lg text-[var(--color-secondary-text)];
+}
+
+.statTitle {
+  @apply text-sm font-semibold text-[var(--color-secondary-text)] uppercase tracking-wider;
+}
+
+.statNumber {
+  @apply font-heading text-4xl font-bold text-[var(--color-primary)];
+}
+
+.tableDabba {
+  @apply bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl flex flex-col;
+}
+
+.tableTitle {
+  @apply font-heading text-xl font-semibold text-[var(--color-primary)];
+}
