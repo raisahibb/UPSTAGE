@@ -10,7 +10,7 @@ So far, we have successfully initialized and built the **Frontend** foundation o
 - **Routing System**: Complete routing implemented using `react-router-dom` with Public, Auth, and Protected routes.
 - **Authentication (Mock)**: Implemented `AuthContext` utilizing localStorage for prototyping frontend flows.
   - Role-based access control implemented for `candidate` and `admin`.
-  - Configured specific admin bypass for testing (e.g., `sidhuc888@gmail.com`).
+  - Configured specific admin account for testing.
 - **Core UI Pages Built**:
   - Landing Page
   - Authentication Pages (Login, Signup)
