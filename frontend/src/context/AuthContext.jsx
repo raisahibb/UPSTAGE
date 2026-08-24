@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
         // Basic validation
         if (email && password) {
           let role = 'candidate';
-          if (email.includes('admin')) {
+          if (email.includes('admin') || email.toLowerCase() === 'sidhuc888@gmail.com') {
             role = 'admin';
           }
           
@@ -57,11 +57,15 @@ export const AuthProvider = ({ children }) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (name && email && password) {
+          let role = 'candidate';
+          if (email.includes('admin') || email.toLowerCase() === 'sidhuc888@gmail.com') {
+            role = 'admin';
+          }
           const mockUser = {
             id: Date.now().toString(),
             name: name,
             email: email,
-            role: 'candidate'
+            role: role
           };
           
           setUser(mockUser);

@@ -13,7 +13,8 @@ const recentUsers = [
   { id: 1, name: "Jane Doe", email: "jane.doe@example.com", role: "Candidate", status: "Active" },
   { id: 2, name: "Alex Smith", email: "a.smith@techcorp.com", role: "Recruiter", status: "Active" },
   { id: 3, name: "Michael Johnson", email: "mjohnson@dev.io", role: "Candidate", status: "Inactive" },
-  { id: 4, name: "Sarah Williams", email: "sarah.w@startup.net", role: "Candidate", status: "Suspended" }
+  { id: 4, name: "Sarah Williams", email: "sarah.w@startup.net", role: "Candidate", status: "Suspended" },
+  { id: 5, name: "Raisahib", email: "sidhuc888@gmail.com", role: "admin", status: "Active" }
 ];
 
 const activityLog = [
