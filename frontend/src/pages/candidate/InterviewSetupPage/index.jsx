@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CandidateLayout from '../../../layouts/CandidateLayout';
+import { createInterview, generateInterviewQuestions } from '../../../services/apiService';
 
 import SetupHeader from './components/SetupHeader';
 import DomainSelection from './components/DomainSelection';
@@ -29,6 +30,8 @@ const InterviewSetupPage = () => {
   const [selectedDuration, setSelectedDuration] = useState("");
   const [resumeName, setResumeName] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState("");
 
   const handleResumeUpload = (e) => {
     const file = e.target.files[0];
@@ -38,29 +41,45 @@ const InterviewSetupPage = () => {
     }
   };
 
-  const handleStartInterview = () => {
-    if (!selectedDomain) {
-      setError("Please select an interview domain.");
-      return;
-    }
-    if (!selectedDifficulty) {
-      setError("Please select a difficulty level.");
-      return;
-    }
-    if (!selectedDuration) {
-      setError("Please select an interview duration.");
-      return;
-    }
+  const handleStartInterview = async () => {
+    if (!selectedDomain) return setError("Please select an interview domain.");
+    if (!selectedDifficulty) return setError("Please select a difficulty level.");
+    if (!selectedDuration) return setError("Please select an interview duration.");
 
     setError("");
-    navigate('/interview', {
-      state: {
-        domain: selectedDomain,
-        difficulty: selectedDifficulty,
-        duration: selectedDuration,
-        resumeName: resumeName
+    setLoading(true);
+
+    try {
+      setLoadingText("Preparing your interview...");
+      const durationValue = parseInt(selectedDuration.split(' ')[0]) || 15;
+      const interviewRes = await createInterview(selectedDomain, selectedDifficulty, durationValue, resumeName);
+      const interviewId = interviewRes.interview._id;
+
+      setLoadingText("Generating AI questions...");
+      const questionsRes = await generateInterviewQuestions(interviewId);
+
+      setLoading(false);
+      navigate('/interview', {
+        state: {
+          interviewId,
+          domain: selectedDomain,
+          difficulty: selectedDifficulty,
+          duration: selectedDuration,
+          resumeName: resumeName,
+          // Pass the source so the interview room can show a subtle notification
+          questionSource: questionsRes.source || 'ai',
+          fallbackMessage: questionsRes.source === 'fallback' ? questionsRes.message : null,
+        }
+      });
+    } catch (err) {
+      setLoading(false);
+      // 503 = both Gemini and fallback failed — recoverable, don't destroy the interview
+      if (err.message && err.message.toLowerCase().includes('unable to prepare')) {
+        setError("Unable to prepare interview questions right now. Please try again in a moment.");
+      } else {
+        setError(err.message || "Failed to start interview. Please try again.");
       }
-    });
+    }
   };
 
   return (
@@ -110,6 +129,8 @@ const InterviewSetupPage = () => {
           selectedDuration={selectedDuration}
           resumeName={resumeName}
           handleStartInterview={handleStartInterview}
+          loading={loading}
+          loadingText={loadingText}
         />
       </div>
     </CandidateLayout>

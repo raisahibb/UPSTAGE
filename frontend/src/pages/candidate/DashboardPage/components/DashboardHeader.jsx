@@ -3,12 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../../../components/common/Button';
 import { PlayCircle } from 'lucide-react';
 
-const DashboardHeader = () => {
+const DashboardHeader = ({ userName }) => {
   const navigate = useNavigate();
+  
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 18) return 'Good afternoon';
+    return 'Good evening';
+  };
+
   return (
     <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
       <div>
-        <h1 className="dashBadaTitle">Good morning, Alex</h1>
+        <h1 className="dashBadaTitle">{getGreeting()}, {userName}</h1>
         <p className="dashChhotaText">Ready for your next interview?</p>
       </div>
       <Button 

@@ -2,7 +2,30 @@ import React from 'react';
 import Card from '../../../../components/common/Card';
 import { CheckCircle, TrendingUp, Star } from 'lucide-react';
 
-const StatsGrid = () => {
+const StatsGrid = ({ interviews }) => {
+  // Calculate completed interviews for the current month
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  const completedThisMonth = interviews.filter(inv => {
+    if (inv.status !== 'completed') return false;
+    const date = new Date(inv.completedAt || inv.createdAt);
+    return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+  }).length;
+
+  const evaluatedInterviews = interviews.filter(inv => inv.status === 'completed' && inv.evaluationStatus === 'evaluated' && inv.report && inv.report.overallScore > 0);
+
+  let averageScore = 0;
+  let bestScore = 0;
+
+  if (evaluatedInterviews.length > 0) {
+    const totalScore = evaluatedInterviews.reduce((acc, inv) => acc + (inv.report.overallScore || 0), 0);
+    averageScore = (totalScore / evaluatedInterviews.length).toFixed(1);
+    
+    bestScore = Math.max(...evaluatedInterviews.map(inv => inv.report.overallScore || 0)).toFixed(1);
+  }
+
   return (
     <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         
@@ -13,8 +36,8 @@ const StatsGrid = () => {
             <CheckCircle size={20} className="text-white" />
           </div>
         </div>
-        <div className="flex items-baseline gap-2">
-          <span className="statNumber">12</span>
+        <div className="flex items-baseline gap-2 mt-4">
+          <span className="statNumber">{completedThisMonth}</span>
           <span className="text-sm text-[var(--color-secondary-text)]">this month</span>
         </div>
       </Card>
@@ -26,27 +49,34 @@ const StatsGrid = () => {
             <TrendingUp size={20} className="text-white" />
           </div>
         </div>
-        <div className="flex items-baseline gap-2">
-          <span className="statNumber">84<span className="text-xl">%</span></span>
-          <span className="text-sm text-green-800 bg-green-100 px-2 py-1 rounded-full flex items-center gap-1 font-medium">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
-            +5%
-          </span>
+        <div className="flex items-baseline gap-2 mt-4">
+          {evaluatedInterviews.length > 0 ? (
+            <>
+              <span className="statNumber">{averageScore}</span>
+              <span className="text-sm text-[var(--color-secondary-text)]">/ 10</span>
+            </>
+          ) : (
+            <span className="text-sm font-semibold text-gray-400 italic">Not evaluated yet</span>
+          )}
         </div>
       </Card>
 
-      <Card className="flex flex-col justify-between h-full hover:border-[var(--color-primary-light)] transition-colors cursor-pointer group">
+      <Card className="flex flex-col justify-between h-full">
         <div className="flex justify-between items-start mb-4">
           <span className="text-sm font-semibold text-[var(--color-primary)] uppercase tracking-wider">Best Score</span>
           <div className="primary-gradient-bg p-2 rounded-lg">
             <Star size={20} className="text-white" />
           </div>
         </div>
-        <div className="flex items-baseline gap-2">
-          <span className="text-4xl font-bold text-[var(--color-primary)]">96<span className="text-xl">%</span></span>
-          <span className="text-sm text-[var(--color-secondary-text)]">System Design</span>
+        <div className="flex items-baseline gap-2 mt-4">
+          {evaluatedInterviews.length > 0 ? (
+            <>
+              <span className="statNumber">{bestScore}</span>
+              <span className="text-sm text-[var(--color-secondary-text)]">/ 10</span>
+            </>
+          ) : (
+            <span className="text-sm font-semibold text-gray-400 italic">Not evaluated yet</span>
+          )}
         </div>
       </Card>
 

@@ -1,19 +1,19 @@
 import React from 'react';
 import { Mic, MicOff, Video, VideoOff, PhoneOff } from 'lucide-react';
 
-const InterviewControls = ({ isMicOn, setIsMicOn, isVideoOn, setIsVideoOn, handleEndInterview }) => {
+const InterviewControls = ({ isListening, toggleListening, isVideoOn, setIsVideoOn, handleEndInterview }) => {
   return (
     <footer className="bg-white border-t border-[var(--color-border)] py-3 sticky bottom-0 z-20 mt-auto shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.03)] h-[72px] flex items-center">
       <div className="w-full max-w-[1360px] mx-auto px-6 flex items-center justify-center gap-6">
         <button 
-          onClick={() => setIsMicOn(!isMicOn)}
+          onClick={toggleListening}
           className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md active:scale-95 border ${
-            isMicOn ? 'bg-white border-[var(--color-border)] text-gray-700 hover:bg-gray-50' 
-                    : 'bg-red-50 border-red-200 text-red-600'
+            isListening ? 'bg-indigo-100 border-indigo-300 text-indigo-700 animate-pulse' 
+                        : 'bg-white border-[var(--color-border)] text-gray-700 hover:bg-gray-50'
           }`}
           title="Toggle Microphone"
         >
-          {isMicOn ? <Mic size={20} /> : <MicOff size={20} />}
+          {isListening ? <Mic size={20} /> : <MicOff size={20} />}
         </button>
         
         <button 

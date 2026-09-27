@@ -2,7 +2,7 @@
 // Ab isme AuthContext connect kar diya gaya hai jisse user ki state real-time me update hoti hai.
 
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Button from './Button';
 import { useAuth } from '../../context/AuthContext';
 import { History, TrendingUp, LogOut, CircleUser } from 'lucide-react';
@@ -11,6 +11,7 @@ import upstageLogo from '../../img/02_upstage_horizontal_logo.png';
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     logout();
@@ -42,16 +43,22 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-8 absolute left-1/2 -translate-x-1/2">
             {isAuthenticated ? (
               <>
-                <Link to={user?.role === 'admin' ? "/admin" : "/dashboard"} className="text-sm font-medium text-[var(--color-primary)] border-b-2 border-[var(--color-primary)] px-1 py-5">
+                <Link to={user?.role === 'admin' ? "/admin" : "/dashboard"} className={`text-sm font-medium px-1 py-5 ${
+                  location.pathname === '/dashboard' || location.pathname === '/admin' ? 'text-[var(--color-primary)] border-b-2 border-[var(--color-primary)]' : 'text-[var(--color-secondary-text)] hover:text-[var(--color-primary-text)]'
+                }`}>
                   Dashboard
                 </Link>
-                {user?.role === 'candidate' && (
+                {user?.role !== 'admin' && (
                   <>
-                    <Link to="/dashboard" className="flex items-center gap-1.5 text-sm font-medium text-[var(--color-secondary-text)] hover:text-[var(--color-primary-text)] px-1 py-5">
+                    <Link to="/history" className={`flex items-center gap-1.5 text-sm font-medium px-1 py-5 ${
+                      location.pathname === '/history' ? 'text-[var(--color-primary)] border-b-2 border-[var(--color-primary)]' : 'text-[var(--color-secondary-text)] hover:text-[var(--color-primary-text)]'
+                    }`}>
                       <History size={16} />
                       History
                     </Link>
-                    <Link to="/dashboard" className="flex items-center gap-1.5 text-sm font-medium text-[var(--color-secondary-text)] hover:text-[var(--color-primary-text)] px-1 py-5">
+                    <Link to="/progress" className={`flex items-center gap-1.5 text-sm font-medium px-1 py-5 ${
+                      location.pathname === '/progress' ? 'text-[var(--color-primary)] border-b-2 border-[var(--color-primary)]' : 'text-[var(--color-secondary-text)] hover:text-[var(--color-primary-text)]'
+                    }`}>
                       <TrendingUp size={16} />
                       Progress
                     </Link>
@@ -106,6 +113,36 @@ const Navbar = () => {
           </div>
 
         </div>
+        
+        {/* Mobile Navigation Row */}
+        {isAuthenticated && user?.role !== 'admin' && (
+          <div className="flex md:hidden justify-around py-2 border-t border-[var(--color-border)]">
+            <Link to="/dashboard" className={`text-xs font-medium flex flex-col items-center gap-1 ${
+              location.pathname === '/dashboard' ? 'text-[var(--color-primary)]' : 'text-[var(--color-secondary-text)]'
+            }`}>
+              <span>Dashboard</span>
+            </Link>
+            <Link to="/history" className={`text-xs font-medium flex flex-col items-center gap-1 ${
+              location.pathname === '/history' ? 'text-[var(--color-primary)]' : 'text-[var(--color-secondary-text)]'
+            }`}>
+              <span>History</span>
+            </Link>
+            <Link to="/progress" className={`text-xs font-medium flex flex-col items-center gap-1 ${
+              location.pathname === '/progress' ? 'text-[var(--color-primary)]' : 'text-[var(--color-secondary-text)]'
+            }`}>
+              <span>Progress</span>
+            </Link>
+          </div>
+        )}
+        {isAuthenticated && user?.role === 'admin' && (
+          <div className="flex md:hidden justify-around py-2 border-t border-[var(--color-border)]">
+            <Link to="/admin" className={`text-xs font-medium flex flex-col items-center gap-1 ${
+              location.pathname === '/admin' ? 'text-[var(--color-primary)]' : 'text-[var(--color-secondary-text)]'
+            }`}>
+              <span>Dashboard</span>
+            </Link>
+          </div>
+        )}
       </div>
     </nav>
   );

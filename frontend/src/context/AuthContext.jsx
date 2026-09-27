@@ -1,8 +1,9 @@
 // Ye file Authentication Context provide karti hai.
 // Iske through hum application ke kisi bhi hisse me user ki state access kar sakte hain.
-// Abhi ke liye ye fake authentication handle kar rahi hai using localStorage.
+// Ab ye real backend APIs se communicate karti hai.
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { signupUser, loginUser, fetchCurrentUser, saveToken, removeToken, getToken } from '../services/apiService';
 
 // Context create kar rahe hain
 const AuthContext = createContext(null);
@@ -12,78 +13,50 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // App load hone par localStorage se user fetch karna
+  // App load hone par agar token localStorage mein hai toh user fetch karo
   useEffect(() => {
-    const storedUser = localStorage.getItem('upstage_user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-      setIsAuthenticated(true);
-    }
-    setIsLoading(false);
+    const initAuth = async () => {
+      const token = getToken();
+      if (token) {
+        try {
+          // Backend se current user ki info lo
+          const data = await fetchCurrentUser();
+          setUser(data.user);
+          setIsAuthenticated(true);
+        } catch (err) {
+          // Token expired ya invalid hai — saaf kar do
+          removeToken();
+        }
+      }
+      setIsLoading(false);
+    };
+
+    initAuth();
   }, []);
 
-  // Fake login function
+  // Real login function — backend se token aur user info milti hai
   const login = async (email, password) => {
-    // API Call simulation using promise
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        // Basic validation
-        if (email && password) {
-          let role = 'candidate';
-          if (email.includes('admin') || email.toLowerCase() === 'sidhuc888@gmail.com') {
-            role = 'admin';
-          }
-          
-          const mockUser = {
-            id: Date.now().toString(),
-            name: email.split('@')[0], // Extracting name from email for mock
-            email: email,
-            role: role
-          };
-          
-          setUser(mockUser);
-          setIsAuthenticated(true);
-          localStorage.setItem('upstage_user', JSON.stringify(mockUser));
-          resolve(mockUser);
-        } else {
-          reject(new Error("Invalid credentials"));
-        }
-      }, 800); // 800ms delay to simulate network request
-    });
+    const data = await loginUser(email, password);
+    saveToken(data.token);
+    setUser(data.user);
+    setIsAuthenticated(true);
+    return data.user;
   };
 
-  // Fake signup function
+  // Real signup function — backend account banata hai aur token return karta hai
   const signup = async (name, email, password) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (name && email && password) {
-          let role = 'candidate';
-          if (email.includes('admin') || email.toLowerCase() === 'sidhuc888@gmail.com') {
-            role = 'admin';
-          }
-          const mockUser = {
-            id: Date.now().toString(),
-            name: name,
-            email: email,
-            role: role
-          };
-          
-          setUser(mockUser);
-          setIsAuthenticated(true);
-          localStorage.setItem('upstage_user', JSON.stringify(mockUser));
-          resolve(mockUser);
-        } else {
-          reject(new Error("Invalid signup details"));
-        }
-      }, 800);
-    });
+    const data = await signupUser(name, email, password);
+    saveToken(data.token);
+    setUser(data.user);
+    setIsAuthenticated(true);
+    return data.user;
   };
 
-  // Logout function
+  // Logout function — token hata do aur state reset karo
   const logout = () => {
+    removeToken();
     setUser(null);
     setIsAuthenticated(false);
-    localStorage.removeItem('upstage_user');
   };
 
   return (

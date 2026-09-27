@@ -3,7 +3,7 @@ import Card from '../../../../components/common/Card';
 import Button from '../../../../components/common/Button';
 import { PlayCircle } from 'lucide-react';
 
-const SetupSummary = ({ selectedDomain, selectedDifficulty, selectedDuration, resumeName, handleStartInterview }) => {
+const SetupSummary = ({ selectedDomain, selectedDifficulty, selectedDuration, resumeName, handleStartInterview, loading, loadingText }) => {
   return (
     <div className="lg:col-span-1">
       <div className="sticky top-24">
@@ -47,10 +47,19 @@ const SetupSummary = ({ selectedDomain, selectedDifficulty, selectedDuration, re
               variant="primary" 
               className="w-full flex items-center justify-center gap-2"
               onClick={handleStartInterview}
-              disabled={!selectedDomain || !selectedDifficulty || !selectedDuration}
+              disabled={loading || !selectedDomain || !selectedDifficulty || !selectedDuration}
             >
-              <PlayCircle size={20} />
-              Start Interview
+              {loading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  {loadingText || "Loading..."}
+                </div>
+              ) : (
+                <>
+                  <PlayCircle size={20} />
+                  Start Interview
+                </>
+              )}
             </Button>
             {(!selectedDomain || !selectedDifficulty || !selectedDuration) && (
               <p className="text-xs text-center text-[var(--color-secondary-text)] mt-3">
