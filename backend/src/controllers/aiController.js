@@ -522,11 +522,13 @@ const generatePerformanceReport = async (req, res, next) => {
     let averageTechnicalAccuracy = 0;
     let overallScore = 0;
 
-    if (evaluatedQuestions > 0) {
-      averageRelevance = Number((sumRelevance / evaluatedQuestions).toFixed(1));
-      averageDepth = Number((sumDepth / evaluatedQuestions).toFixed(1));
-      averageClarity = Number((sumClarity / evaluatedQuestions).toFixed(1));
-      averageTechnicalAccuracy = Number((sumTech / evaluatedQuestions).toFixed(1));
+    const scoredQuestionsCount = evaluatedQuestions + skippedQuestions;
+
+    if (scoredQuestionsCount > 0) {
+      averageRelevance = Number((sumRelevance / scoredQuestionsCount).toFixed(1));
+      averageDepth = Number((sumDepth / scoredQuestionsCount).toFixed(1));
+      averageClarity = Number((sumClarity / scoredQuestionsCount).toFixed(1));
+      averageTechnicalAccuracy = Number((sumTech / scoredQuestionsCount).toFixed(1));
       
       overallScore = Number(((averageRelevance + averageDepth + averageClarity + averageTechnicalAccuracy) / 4).toFixed(1));
     }
