@@ -43,6 +43,11 @@ const interviewQuestionSchema = new mongoose.Schema({
     ref: 'QuestionBank',
     default: null,
   },
+  questionSource: {
+    type: String,
+    enum: ['general', 'resume'],
+    default: 'general',
+  },
   aiProvider: {
     type: String,
     enum: ['gemini', 'groq', null],

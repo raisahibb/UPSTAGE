@@ -21,9 +21,21 @@ const interviewSchema = new mongoose.Schema({
     type: Number, // in minutes
     required: [true, 'Duration is required'],
   },
-  resume: {
-    type: String, // String link to resume file/text
+  resumeAttached: {
+    type: Boolean,
+    default: false,
+  },
+  resumeFileName: {
+    type: String,
     default: null,
+  },
+  resumeText: {
+    type: String,
+    default: null,
+  },
+  resumeQuestionsEnabled: {
+    type: Boolean,
+    default: false,
   },
   status: {
     type: String,

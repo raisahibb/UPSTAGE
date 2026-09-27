@@ -41,7 +41,7 @@ const CandidateCamera = ({ isVideoOn }) => {
   }, [isVideoOn]);
 
   return (
-    <div className="w-[clamp(120px,20vw,180px)] aspect-video bg-gray-900 rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.15)] border border-white/20 relative flex items-center justify-center shrink-0">
+    <div className="w-[100px] sm:w-[clamp(120px,20vw,180px)] aspect-[3/4] sm:aspect-video bg-gray-900 rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.15)] border border-white/20 relative flex items-center justify-center shrink-0">
       {isVideoOn ? (
         <>
           <video 

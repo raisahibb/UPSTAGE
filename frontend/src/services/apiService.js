@@ -59,8 +59,28 @@ const fetchCurrentUser = () => request('/auth/me');
 const getInterviews = () =>
   request('/interviews', 'GET');
 
-const createInterview = (domain, difficulty, duration, resume) =>
-  request('/interviews', 'POST', { domain, difficulty, duration, resume });
+const createInterview = (domain, difficulty, duration, resumeQuestionsEnabled = false) =>
+  request('/interviews', 'POST', { domain, difficulty, duration, resumeQuestionsEnabled });
+
+const uploadResume = async (interviewId, file) => {
+  const token = getToken();
+  const formData = new FormData();
+  formData.append('resume', file);
+
+  const response = await fetch(`${BASE_URL}/interviews/${interviewId}/resume`, {
+    method: 'POST',
+    headers: {
+      ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+    },
+    body: formData
+  });
+
+  const data = await response.json();
+  if (!data.success) {
+    throw new Error(data.message || 'Failed to upload resume');
+  }
+  return data;
+};
 
 const updateInterviewStatus = (interviewId, status) =>
   request(`/interviews/${interviewId}/status`, 'PATCH', { status });
@@ -140,6 +160,7 @@ export {
   fetchCurrentUser,
   getInterviews,
   createInterview,
+  uploadResume,
   updateInterviewStatus,
   getInterviewDetails,
   reportInterviewViolation,

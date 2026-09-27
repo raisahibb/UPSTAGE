@@ -48,16 +48,16 @@ const Navbar = () => {
                 }`}>
                   Dashboard
                 </Link>
-                {user?.role !== 'admin' && (
+                {(!user?.role || user.role !== 'admin') && (
                   <>
                     <Link to="/history" className={`flex items-center gap-1.5 text-sm font-medium px-1 py-5 ${
-                      location.pathname === '/history' ? 'text-[var(--color-primary)] border-b-2 border-[var(--color-primary)]' : 'text-[var(--color-secondary-text)] hover:text-[var(--color-primary-text)]'
+                      location.pathname.startsWith('/history') ? 'text-[var(--color-primary)] border-b-2 border-[var(--color-primary)]' : 'text-[var(--color-secondary-text)] hover:text-[var(--color-primary-text)]'
                     }`}>
                       <History size={16} />
                       History
                     </Link>
                     <Link to="/progress" className={`flex items-center gap-1.5 text-sm font-medium px-1 py-5 ${
-                      location.pathname === '/progress' ? 'text-[var(--color-primary)] border-b-2 border-[var(--color-primary)]' : 'text-[var(--color-secondary-text)] hover:text-[var(--color-primary-text)]'
+                      location.pathname.startsWith('/progress') ? 'text-[var(--color-primary)] border-b-2 border-[var(--color-primary)]' : 'text-[var(--color-secondary-text)] hover:text-[var(--color-primary-text)]'
                     }`}>
                       <TrendingUp size={16} />
                       Progress
@@ -115,7 +115,7 @@ const Navbar = () => {
         </div>
         
         {/* Mobile Navigation Row */}
-        {isAuthenticated && user?.role !== 'admin' && (
+        {isAuthenticated && (!user?.role || user.role !== 'admin') && (
           <div className="flex md:hidden justify-around py-2 border-t border-[var(--color-border)]">
             <Link to="/dashboard" className={`text-xs font-medium flex flex-col items-center gap-1 ${
               location.pathname === '/dashboard' ? 'text-[var(--color-primary)]' : 'text-[var(--color-secondary-text)]'
@@ -123,12 +123,12 @@ const Navbar = () => {
               <span>Dashboard</span>
             </Link>
             <Link to="/history" className={`text-xs font-medium flex flex-col items-center gap-1 ${
-              location.pathname === '/history' ? 'text-[var(--color-primary)]' : 'text-[var(--color-secondary-text)]'
+              location.pathname.startsWith('/history') ? 'text-[var(--color-primary)]' : 'text-[var(--color-secondary-text)]'
             }`}>
               <span>History</span>
             </Link>
             <Link to="/progress" className={`text-xs font-medium flex flex-col items-center gap-1 ${
-              location.pathname === '/progress' ? 'text-[var(--color-primary)]' : 'text-[var(--color-secondary-text)]'
+              location.pathname.startsWith('/progress') ? 'text-[var(--color-primary)]' : 'text-[var(--color-secondary-text)]'
             }`}>
               <span>Progress</span>
             </Link>

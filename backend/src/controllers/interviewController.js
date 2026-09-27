@@ -7,7 +7,7 @@ const InterviewResponse = require('../models/InterviewResponse');
 // POST /api/interviews
 const createInterview = async (req, res) => {
   try {
-    const { domain, difficulty, duration, resume } = req.body;
+    const { domain, difficulty, duration, resumeQuestionsEnabled } = req.body;
 
     // Validation
     if (!domain || !difficulty || !duration) {
@@ -33,7 +33,7 @@ const createInterview = async (req, res) => {
       domain,
       difficulty,
       duration,
-      resume: resume || null,
+      resumeQuestionsEnabled: resumeQuestionsEnabled || false,
     });
 
     res.status(201).json({
@@ -44,6 +44,46 @@ const createInterview = async (req, res) => {
   } catch (error) {
     console.error('createInterview error:', error);
     res.status(500).json({ success: false, message: 'Failed to create interview' });
+  }
+};
+
+// POST /api/interviews/:id/resume
+const { parseResume } = require('../services/resumeService');
+
+const uploadResume = async (req, res) => {
+  try {
+    const interviewId = req.params.id;
+    const userId = req.user.id;
+
+    const interview = await Interview.findById(interviewId);
+    if (!interview) {
+      return res.status(404).json({ success: false, message: 'Interview not found' });
+    }
+
+    if (interview.user.toString() !== userId) {
+      return res.status(403).json({ success: false, message: 'Not authorized' });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: 'No resume file uploaded' });
+    }
+
+    const { buffer, originalname, mimetype } = req.file;
+
+    const extractedText = await parseResume(buffer, mimetype);
+
+    interview.resumeAttached = true;
+    interview.resumeFileName = originalname;
+    interview.resumeText = extractedText;
+    await interview.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Resume processed successfully'
+    });
+  } catch (error) {
+    console.error('uploadResume error:', error);
+    res.status(500).json({ success: false, message: error.message || 'Failed to process resume' });
   }
 };
 
@@ -336,4 +376,5 @@ module.exports = {
   reportViolation,
   getInterviewDetails,
   getInterviewProgress,
+  uploadResume,
 };

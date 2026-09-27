@@ -1,0 +1,6 @@
+Alex Carter - Software Engineer
+EXPERIENCE
+- Built UPSTAGE using React, Node.js, MongoDB and Google Gemini.
+- Implemented a custom rate limiter and JWT authentication.
+SKILLS
+JavaScript, Python, TensorFlow, YOLO, Kubernetes

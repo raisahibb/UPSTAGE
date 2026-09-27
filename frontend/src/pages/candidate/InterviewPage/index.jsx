@@ -188,6 +188,18 @@ const InterviewPage = () => {
 
   const finalizeInterview = async () => {
     setInterviewState('evaluating');
+    
+    // Immediately stop camera/mic
+    setIsVideoOn(false);
+    if (recognitionRef.current && isListening) {
+      recognitionRef.current.stop();
+    }
+    
+    // Cleanly exit fullscreen immediately so user isn't trapped during API calls
+    if (document.fullscreenElement && document.exitFullscreen) {
+      document.exitFullscreen().catch(err => console.log("Exit fullscreen error:", err));
+    }
+
     if (config.interviewId) {
       try {
         await updateInterviewStatus(config.interviewId, 'completed');
@@ -235,7 +247,7 @@ const InterviewPage = () => {
 
   // Fullscreen and Visibility monitoring
   useEffect(() => {
-    if (secureState !== 'active' || interviewState === 'completed') return;
+    if (secureState !== 'active' || interviewState === 'completed' || interviewState === 'evaluating') return;
 
     // Detect when the candidate leaves the interview tab or exits fullscreen
     const handleViolation = async (reason) => {
@@ -291,10 +303,8 @@ const InterviewPage = () => {
   
 
   const handleEndInterview = () => {
+    if (interviewState === 'evaluating' || interviewState === 'completed') return;
     if (window.confirm("Are you sure you want to end the interview early?")) {
-      if (recognitionRef.current && isListening) {
-        recognitionRef.current.stop();
-      }
       finalizeInterview();
     }
   };
@@ -480,6 +490,7 @@ const InterviewPage = () => {
         isVideoOn={isVideoOn}
         setIsVideoOn={setIsVideoOn}
         handleEndInterview={handleEndInterview}
+        isEnding={interviewState === 'evaluating'}
       />
     </div>
   );

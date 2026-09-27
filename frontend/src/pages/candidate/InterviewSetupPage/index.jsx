@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CandidateLayout from '../../../layouts/CandidateLayout';
-import { createInterview, generateInterviewQuestions } from '../../../services/apiService';
+import { createInterview, uploadResume, generateInterviewQuestions } from '../../../services/apiService';
 
 import SetupHeader from './components/SetupHeader';
 import DomainSelection from './components/DomainSelection';
@@ -29,6 +29,8 @@ const InterviewSetupPage = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("");
   const [resumeName, setResumeName] = useState("");
+  const [resumeFile, setResumeFile] = useState(null);
+  const [resumeQuestionsEnabled, setResumeQuestionsEnabled] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("");
@@ -36,7 +38,13 @@ const InterviewSetupPage = () => {
   const handleResumeUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        setError("Resume file must be under 5MB");
+        return;
+      }
       setResumeName(file.name);
+      setResumeFile(file);
+      setResumeQuestionsEnabled(true);
       setError("");
     }
   };
@@ -52,8 +60,13 @@ const InterviewSetupPage = () => {
     try {
       setLoadingText("Preparing your interview...");
       const durationValue = parseInt(selectedDuration.split(' ')[0]) || 15;
-      const interviewRes = await createInterview(selectedDomain, selectedDifficulty, durationValue, resumeName);
+      const interviewRes = await createInterview(selectedDomain, selectedDifficulty, durationValue, resumeQuestionsEnabled);
       const interviewId = interviewRes.interview._id;
+
+      if (resumeFile) {
+        setLoadingText("Uploading resume...");
+        await uploadResume(interviewId, resumeFile);
+      }
 
       setLoadingText("Generating AI questions...");
       const questionsRes = await generateInterviewQuestions(interviewId);
@@ -120,6 +133,8 @@ const InterviewSetupPage = () => {
           <ResumeUpload 
             resumeName={resumeName} 
             handleResumeUpload={handleResumeUpload} 
+            resumeQuestionsEnabled={resumeQuestionsEnabled}
+            setResumeQuestionsEnabled={setResumeQuestionsEnabled}
           />
         </div>
 
